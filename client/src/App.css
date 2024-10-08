@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.App {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(90, 131, 185);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(52, 65, 107);
+}
+
+body {
+  background-color: rgb(190, 218, 245);
+  ;
+}
+
+.navbar {
+  position: relative;
+}
+
+.navbar-nav .btn {
+  font-weight: 700;
+  font-size: 19px;
+  padding: 0;
+}
+
+.navbar-nav .btn:focus,
+.navbar-nav button:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.nav-link a:hover {
+  padding-bottom: 5px;
+  border-bottom: 3px solid rgb(8, 39, 97);
+}
+
+.username {
+  color: white;
+  font-weight: 600;
+}
+
+.username svg {
+  cursor: pointer;
+}
+
+.image {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.slogan {
+  position: absolute;
+}
+
+.info {
+  padding: 1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.psy {
+  color: rgb(248, 250, 252);
+  text-shadow: -1px 1px 0 #999595,
+    1px 1px 0 #a7a1a1,
+    1px -1px 0 #000,
+    -1px -1px 0 #000;
+  font-size: 2.5vw;
+  margin: 0;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bookslot {
+  color: rgb(141, 145, 142);
+  text-shadow: -1px 1px 0 #833939,
+    1px 1px 0 #4e4b4b,
+    1px -1px 0 #6d6a6a,
+    -1px -1px 0 #000;
+}
+
+.drImage {
+  border-radius: 100px;
+}
+
+.ps {
+  color: rgb(4, 17, 19);
+  margin-top: 1rem;
+  margin-bottom: 3vw;
+  font-weight: 500;
+  text-shadow: -1px 1px 0 #a19b9b,
+    1px 1px 0 #a09797,
+    1px -1px 0 #6d6a6a,
+    -1px -1px 0 #000;
+
+}
+
+.online {
+  padding-top: 20vw;
+  text-shadow: -1px 1px 0 #0a0a0a,
+    1px 1px 0 #080808,
+    1px -1px 0 #0e0c0c,
+    -1px -1px 0 #000;
+}
+
+.form label {
+  font-weight: 600;
+}
+
+.form-check {
+  display: flex;
+  margin-left: 60px;
+}
+
+.form input {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+.add {
+  overflow: hidden;
+  padding-bottom: 100px;
+}
+
+.add .form-select,
+.clearfix .form-select {
+  border: none;
+  border-bottom: 1px solid black;
+
+}
+
+.add .form-select:focus {
+  box-shadow: none;
+}
+
+.empty {
+  border-bottom: 2px solid red;
+}
+
+.form input:focus,
+.add input:focus {
+  box-shadow: none;
+  border-bottom: 2px solid skyblue;
+}
+
+.modal-header,
+.offcanvas-header {
+  color: white;
+  background-color: rgb(121, 183, 224);
+  border-bottom: 2px solid blue;
+}
+
+.modal-body .form-group input,
+.add input {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid;
+}
+.modal-body .form-group label,
+.add label {
+  margin-top: 20px;
+}
+
+.modal-body .form-group input {
+  box-shadow: none;
+}
+
+.admin {
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.admin .list button,
+.list2 button {
+  border-radius: 0;
+}
+
+.admin .list button:hover,
+.list2 button:hover {
+  transition: 0.3s;
+  border-radius: 20px;
+}
+
+.admin .list form input:focus {
+  box-shadow: none;
+}
+
+.offcanvas {
+  height: 90% !important;
+  background-color: rgb(238, 243, 248);
+}
+
+.time-slot button {
+  margin: 5px 5px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(156, 206, 226);
+}
+
+.names {
+  position: absolute;
+  cursor: pointer;
+}
+
+.doctor form input,
+.doctor form button {
+  border: none;
+  font-size: large;
+  padding: 0px 15px;
+  background-color: rgb(230, 245, 248);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.doctor form input:focus {
+  outline: none;
+  border: 1px solid rgb(104, 154, 187);
+
+}
+
+.doctor form button {
+  background-color: rgb(72, 144, 204);
+  color: white;
+}
+
+.doctor form button:hover {
+  background-color: rgb(39, 102, 153);
+  border-radius: 10px;
+}
+
+.doctor .row {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mse .form-group {
+  box-shadow: 0 1px 0px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mse .form-group span {
+  font-weight: 500;
+}
+
+.mse .form-group input[type="checkbox"] {
+  accent-color: rgb(9, 85, 148);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mse .form-input {
+  width: 30px;
+}
+
+.mse .diagnosis,
+.mse .treatment {
+  height: 400px;
+  overflow: visible;
+}
+
+.offcanvas-body .dropdown {
+  position: relative;
+}
+
+.duration input:focus {
+  outline: none;
+}
+
+.doctor .names {
+  position: absolute;
+  height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.doctor .comments .list-group {
+  height: 380px;
+  overflow-y: scroll;
+}
+
+.doctor .comments .list-group li {
+  border-radius: 10px;
+  background-color: rgb(158, 180, 197);
+}
+
+.doctor .comments .list-group li span {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.doctor .comments .list-group li p {
+  font-weight: 600;
+}
+
+.doctor .comments form {
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.doctor .comments form input {
+  border-radius: 7px;
+}
+
+.clearfix input {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.clearfix svg,
+.clearfix form svg {
+  cursor: pointer;
+}
+
+.clearfix input:focus {
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.preview {
+  height: 450px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.774);
+  overflow-y: scroll;
+}
+.preview .form-group label{
+  border-bottom: 1px solid;
+  padding-bottom: 0;
+  /* margin-bottom: 0; */
+}
+
+@media screen and (min-width: 500px) {
+  .admin {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .psy {
+    font-size: 5vw;
+  }
+}
+
+#createMse {
+  animation-name: example;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  from {
+    border: none;
+    background-color: rgb(185, 203, 228);
+  }
+
+  to {
+    border: none;
+    background-color: rgb(37, 77, 163);
+  }
+}
