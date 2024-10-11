@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginLeft: -16,
         width: 590,
-        marginTop: 140,
+        marginTop: 200,
         marginBottom:10
     },
     viewer: {
