@@ -11,18 +11,19 @@ const styles = StyleSheet.create({
     img: {
         width: 50,
         height: 50,
-        marginLeft:10,
+        marginLeft: 10,
     },
     date: {
-        marginLeft: 10,
+        marginRight: 50,
         marginTop: 40,
         fontSize: 15
     },
     pname: {
-        fontSize: 15,
+        fontSize: 16,
         marginLeft: -16,
-        width: 600,
-        marginTop: 140
+        width: 590,
+        marginTop: 140,
+        marginBottom:10
     },
     viewer: {
         fontSize: 15,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
         borderTop: 1,
         fontSize: 15,
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         fontStyle: 'bold',
         marginBottom: 20,
 
@@ -47,12 +48,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
         borderTop: 'none',
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         fontStyle: 'bold',
     },
     name: {
         width: '40%',
-        textAlign: 'center',    
+        textAlign: 'center',
     },
     morning: {
         width: '20%',
@@ -124,8 +125,8 @@ function Test(props) {
                                 <Text style={styles.pname}>{sessionStorage.getItem('patient')}                                                                                       <Text style={styles.date}>{currentdate}</Text></Text>
                             </View>
                             <View style={styles.row} className="d-inline">
-                        <Image src={logo} style={styles.img} />
-                                <Text style={styles.name}>Name</Text>
+                                <Image src={logo} style={styles.img} />
+                                <Text style={styles.name}>    </Text>
                                 <Text style={styles.morning}>Morning</Text>
                                 <Text style={styles.afternoon}>Afternoon</Text>
                                 <Text style={styles.night}>Night</Text>
