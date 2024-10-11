@@ -11,10 +11,10 @@ const styles = StyleSheet.create({
     img: {
         width: 50,
         height: 50,
-        marginBottom:140
+        marginLeft:10,
     },
     date: {
-        marginLeft:10,
+        marginLeft: 10,
         marginTop: 40,
         fontSize: 15
     },
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: -16,
         width: 600,
+        marginTop: 140
     },
     viewer: {
         fontSize: 15,
@@ -32,23 +33,26 @@ const styles = StyleSheet.create({
         marginTop: -20,
         flexDirection: 'row',
         borderColor: 'blue',
-        border: 1,
+        borderTop: 1,
         fontSize: 15,
-        backgroundColor: 'skyblue',
         alignItems: 'center',
+        justifyContent:'center',
         fontStyle: 'bold',
+        marginBottom: 20,
+
     },
     items: {
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 20,
         fontSize: 15,
         borderTop: 'none',
         alignItems: 'center',
+        justifyContent:'center',
         fontStyle: 'bold',
     },
     name: {
-        width: '50%',
-        textAlign: 'center',
+        width: '40%',
+        textAlign: 'center',    
     },
     morning: {
         width: '20%',
@@ -116,11 +120,11 @@ function Test(props) {
                 <PDFViewer style={styles.viewer}>
                     <Document>
                         <Page size="A4" style={styles.page}>
-                            <Image src={logo} style={styles.img} />
                             <View style={styles.section} className="d-inline">
                                 <Text style={styles.pname}>{sessionStorage.getItem('patient')}                                                                                       <Text style={styles.date}>{currentdate}</Text></Text>
                             </View>
                             <View style={styles.row} className="d-inline">
+                        <Image src={logo} style={styles.img} />
                                 <Text style={styles.name}>Name</Text>
                                 <Text style={styles.morning}>Morning</Text>
                                 <Text style={styles.afternoon}>Afternoon</Text>
@@ -129,6 +133,7 @@ function Test(props) {
                             </View>
                             {props.printData.map(data => (
                                 <View style={styles.items} className="d-inline">
+                                    <Text className="d-inline">               </Text>
                                     <Text className="d-inline" style={styles.name}>{data.name ? data.name : ' '}</Text>
                                     <Text className="d-inline" style={styles.morning}>{data.morning ? data.morning : '0'}</Text>
                                     <Text className="d-inline" style={styles.afternoon}>{data.afternoon ? data.afternoon : '0'}</Text>
