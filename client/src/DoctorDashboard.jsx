@@ -164,6 +164,24 @@ function DoctorDashboard() {
                     </div>
                     {!preview && mse.map(data => (
                         <div className='row mse preview m-1'>
+                            <div className="form-group col-md-4 col-sm-6">
+                                <label htmlFor="illness">Registration Date</label>
+                                <div className='duration'>
+                                    <strong><p>{data.date1}</p></strong>
+                                </div>
+                            </div>
+                            <div className="form-group col-md-4 col-sm-6">
+                                <label htmlFor="illness">Age</label>
+                                <div className='duration'>
+                                    <strong><p>{data.age}</p></strong>
+                                </div>
+                            </div>
+                            <div className="form-group col-md-4 col-sm-6">
+                                <label htmlFor="illness">Marital Status</label>
+                                <div className='duration'>
+                                    <strong><p>{data.marital_status}</p></strong>
+                                </div>
+                            </div>
                             <div className="form-group col-md-6 col-sm-6">
                                 <label htmlFor="illness">Present Illness Duration</label>
                                 <div className='duration'>
