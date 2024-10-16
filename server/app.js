@@ -29,7 +29,7 @@ const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'pms-sj'
+    database: 'pms'
 });*/
 con.connect((err) => {
     if (err)
