@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Select from 'react-select'
@@ -44,7 +42,7 @@ function Mse() {
         patientId: "",
         diagnosis: [],
         management: "",
-        otherSymptoms : []
+        otherSymptoms: []
     })
     const handleClose = () => {
         setShow(!show);
@@ -58,7 +56,7 @@ function Mse() {
         const extraDia = document.getElementsByClassName('diaAdd')
         diagnosisOptions.push({
             label: extraDia[0].value,
-            value : extraDia[0].value
+            value: extraDia[0].value
         })
         document.getElementById('extra').value = ""
     }
@@ -181,6 +179,18 @@ function Mse() {
                 <Offcanvas.Body>
                     <form>
                         <div className='row mse add'>
+                            <div className="form-group col-md-6 col-sm-6">
+                                <label htmlFor="illness" className='mb-2'><strong>Patient's Age</strong></label>
+                                <div className='duration'>
+                                    {localStorage.getItem('p-age')}
+                                </div>
+                            </div>
+                            <div className="form-group col-md-6 col-sm-6">
+                                <label htmlFor="illness" className='mb-2'><strong>Patient's Marital Status</strong></label>
+                                <div className='duration'>
+                                    {localStorage.getItem('p-age')}
+                                </div>
+                            </div>
                             <div className="form-group col-md-4 col-sm-6">
                                 <label htmlFor="illness" className='mb-2'><strong>Present Illness Duration</strong></label>
                                 <div className='duration'>

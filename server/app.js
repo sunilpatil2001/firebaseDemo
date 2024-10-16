@@ -80,6 +80,7 @@ app.post('/signin', (req, res) => {
     }
 })
 app.post('/add_patient', (req, res) => {
+    console.log("here")
     var date = new Date()
     var day = date.getDate()
     var month = date.getMonth() + 1
@@ -97,8 +98,8 @@ app.post('/add_patient', (req, res) => {
         req.body.age,
         req.body.occupation,
         req.body.referral,
-        req.body.medical.toString(),
-        date
+        date,
+        req.body.medical.toString()
     ]
     try {
         const query = `SELECT * from patients where full_name LIKE '${(req.body.name).toLowerCase()}%'`;
@@ -107,7 +108,7 @@ app.post('/add_patient', (req, res) => {
                 console.log(result.length)
                 data[0] = data[0] + "-" + result.length
                 try {
-                    const query1 = "INSERT INTO patients(full_name, contact, email, address, education, gender, marital_status, children, age, occupation, referredBy, medical, date1) VALUES (?)"
+                    const query1 = "INSERT INTO patients(full_name, contact, email, address, education, gender, marital_status, children, age, occupation, referredBy, date1, medical) VALUES (?)"
                     con.query(query1, [data], (error) => {
                         if (error) throw error;
                         return res.send('success')
@@ -310,12 +311,12 @@ app.get('/mse/:id', (req, res) => {
 })
 app.post('/get_patient_data', (req, res) => {
     const name = req.body.name
-    const query = "select * from mse where patientId = (select MAX(id) from patients where full_name = ?)"
+    const query = "select * from mse where patientId = (select id from patients where full_name = ?)"
     try {
         con.query(query, name, (error, result) => {
             if (error) throw error;
             if (result.length === 0) {
-                con.query(`SELECT MAX(id) from patients where full_name = '${name}'`, (error, result) => {
+                con.query(`SELECT id, age, marital_status from patients where full_name = '${name}'`, (error, result) => {
                     if (error) throw error;
                     res.send(result)
                 })

@@ -67,6 +67,7 @@ function DoctorDashboard() {
                 document.getElementById('m').innerHTML = ''
                 sessionStorage.setItem('patient', values.name)
                 await axios.post(baseUrl + '/get_patient_data', values).then(res => {
+                    console.log(res.data)
                     if (res.data[0].patientId !== undefined) {
                         localStorage.setItem('id', res.data[0].patientId)
                         setClickable(true)
@@ -75,6 +76,8 @@ function DoctorDashboard() {
                     }
                     else {
                         localStorage.setItem('id', res.data[0].id)
+                        localStorage.setItem('p-age', res.data[0].age)
+                        localStorage.setItem('p-marital', res.data[0].marital_status)
                         setId('createMse')
                         setClickable(true)
                         setMse(false)
