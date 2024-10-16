@@ -146,6 +146,8 @@ function Mse() {
                     document.getElementById('r').innerHTML = 'MSE created Successfully'
                 document.getElementById('r').className = 'mx-5 text-success'
                 sessionStorage.setItem('mse', true)
+                localStorage.removeItem('p-age')
+                localStorage.removeItem('p-marital')
                 setTimeout(() => {
                     nevigate('/doctor');
                 }, 3000);
@@ -180,15 +182,15 @@ function Mse() {
                     <form>
                         <div className='row mse add'>
                             <div className="form-group col-md-6 col-sm-6">
-                                <label htmlFor="illness" className='mb-2'><strong>Patient's Age</strong></label>
-                                <div className='duration'>
-                                    {localStorage.getItem('p-age')}
+                                <label htmlFor="illness" className='mb-2 mt-0'>Patient's Age</label>
+                                <div className='duration mb-2'>
+                                    <p><strong>{localStorage.getItem('p-age')}</strong></p>
                                 </div>
                             </div>
                             <div className="form-group col-md-6 col-sm-6">
-                                <label htmlFor="illness" className='mb-2'><strong>Patient's Marital Status</strong></label>
-                                <div className='duration'>
-                                    {localStorage.getItem('p-age')}
+                                <label htmlFor="illness" className='mb-2 mt-0'>Patient's Marital Status</label>
+                                <div className='duration mb-2'>
+                                    <p><strong>{localStorage.getItem('p-marital')}</strong></p>
                                 </div>
                             </div>
                             <div className="form-group col-md-4 col-sm-6">
