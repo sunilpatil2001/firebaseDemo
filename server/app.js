@@ -21,9 +21,9 @@ var transporter = nodemailer.createTransport({
 
 const con = mysql.createConnection({
     host: 'sql12.freesqldatabase.com',
-    user: 'sql12734811',
-    password: 'ldf4j1sfjw',
-    database: 'sql12734811'
+    user: 'sql12738393',
+    password: 'LbquGMhPdV',
+    database: 'sql12738393'
 })
 /*const con = mysql.createConnection({
     host: 'localhost',
