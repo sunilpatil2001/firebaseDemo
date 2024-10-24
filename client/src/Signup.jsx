@@ -26,6 +26,7 @@ function Signup() {
       if (Object.keys(x).length === 0) {
         document.getElementById('r').innerHTML = `<div class=" mt-2 spinner-border spinner-border-sm text-warning" role="status"><span class="visually-hidden">Loading...</span></div>`
         await axios.post(baseUrl+'/signup', values).then(res => {
+          console.log(res)
           if (res.data === 'success') {
             document.getElementById('r').innerHTML = 'Account Created Successfully !!';
             document.getElementById('r').className = 'text-success mt-2';

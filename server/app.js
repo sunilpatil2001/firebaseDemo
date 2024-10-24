@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const nodemon = require('nodemon');
 const cors = require('cors');
 const mysql = require('mysql2');
 const bodyParser = require("body-parser");
@@ -31,12 +32,26 @@ const con = mysql.createConnection({
     password: 'root',
     database: 'pms'
 });*/
-con.connect((err) => {
-    if (err)
-        console.log("Error occured", err);
-    else
-        console.log("connected with database");
-});
+function connectToDB() {
+    try {
+        con.connect((err) => {
+            if (err) {
+                console.log("Error occured", err);
+                nodemon({
+                    script: 'app.js',
+                    ext: 'js'
+                });
+            }
+            else
+                console.log("connected with database");
+        });
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+connectToDB()
+
 app.post('/signup', (req, res) => {
     const user = req.body.user
     const values = [
@@ -49,8 +64,11 @@ app.post('/signup', (req, res) => {
     try {
         const query = `INSERT INTO ${user}(fname, lname, contact, email, pass) VALUES(?)`;
         con.query(query, [values], (error, result) => {
-            if (error) throw error;
-            return res.send('success')
+            if (error) {
+                return res.send('failed')
+            }
+            else
+                return res.send('success')
         })
     }
     catch (e) {
@@ -61,17 +79,20 @@ app.post('/signin', (req, res) => {
     const email = req.body.email;
     const pass = req.body.pass;
     const user = req.body.user;
-    const query = `SELECT * FROM ${user} WHERE email = '${email}' && pass = '${pass}'`;
+    const query = `SELECT * FROM ${user} WHERE email = '${email}' && pass = '${pass}' limit 1`;
     try {
         con.query(query, (error, result) => {
-            if (error) throw error;
+            if (error) {
+                console.log(error)
+                return res.send('failed')
+            }
             if (result.length > 0) {
                 const token = jwt.sign(result[0].id, 'pms secret key')
                 res.cookie('authcookie', token, { httpOnly: true })
                 res.send(token)
             }
             else {
-                res.send('failed')
+                res.send('wrong creds')
             }
         })
     }
@@ -80,7 +101,6 @@ app.post('/signin', (req, res) => {
     }
 })
 app.post('/add_patient', (req, res) => {
-    console.log("here")
     var date = new Date()
     var day = date.getDate()
     var month = date.getMonth() + 1
@@ -105,12 +125,11 @@ app.post('/add_patient', (req, res) => {
         const query = `SELECT * from patients where full_name LIKE '${(req.body.name).toLowerCase()}%'`;
         con.query(query, (req.body.name).toLowerCase(), (error, result) => {
             if (result.length > 0) {
-                console.log(result.length)
                 data[0] = data[0] + "-" + result.length
                 try {
                     const query1 = "INSERT INTO patients(full_name, contact, email, address, education, gender, marital_status, children, age, occupation, referredBy, date1, medical) VALUES (?)"
                     con.query(query1, [data], (error) => {
-                        if (error) throw error;
+                        if (error) return res.send('failed');
                         return res.send('success')
                     })
                 } catch (e) {
@@ -121,7 +140,7 @@ app.post('/add_patient', (req, res) => {
                 try {
                     const query1 = "INSERT INTO patients(full_name, contact, email, address, education, gender, marital_status, children, age, occupation, referredBy, date1, medical) VALUES (?)"
                     con.query(query1, [data], (error) => {
-                        if (error) throw error;
+                        if (error) return res.send('failed');
                         return res.send('success')
                     })
                 } catch (e) {
@@ -130,7 +149,6 @@ app.post('/add_patient', (req, res) => {
             }
         })
         console.log(data)
-
     }
     catch (e) {
         res.send('failed')
@@ -141,7 +159,7 @@ app.get('/get_patients', (req, res) => {
         const query = "SELECT full_name FROM patients"
         var data = []
         con.query(query, (error, result) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             result.forEach(element => {
                 data.push(element.full_name)
             });
@@ -161,7 +179,7 @@ app.post('/add_appointments', (req, res) => {
     try {
         const query = "INSERT INTO appointments(name, date, time) VALUES (?)"
         con.query(query, [data], (error) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             return res.send('success')
         })
     }
@@ -175,7 +193,7 @@ app.get('/get_appointments', (req, res) => {
         var data = []
         con.query(query, (error, result) => {
             var currentDate = new Date().toJSON().slice(0, 10);
-            if (error) throw error;
+            if (error) return res.send('failed')
             result.forEach(element => {
                 if (element.date === currentDate)
                     data.push(element)
@@ -191,7 +209,7 @@ app.get('/get_all_appointments', (req, res) => {
     try {
         const query = "SELECT date, time FROM appointments"
         con.query(query, (error, result) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             return res.send(result)
         })
     }
@@ -206,8 +224,8 @@ app.post('/contact_info', (req, res) => {
     const query = `SELECT name, contact from appointments inner join patients on appointments.name = patients.full_name  where date >= '${fromDate}' and date <= '${toDate}'`
     try {
         con.query(query, (error, result) => {
-            if (error) throw error;
-            res.send(result)
+            if (error) return res.send('failed')
+            return res.send(result)
         })
     }
     catch (e) {
@@ -245,10 +263,10 @@ app.post('/mse', (req, res) => {
     try {
         const query = "INSERT INTO mse(illness, family, familyDesc, mood, sleep, dreams, personality, personalityDesc, insight, judgement, recent, remote, orientation, hallucination, delusion, hallucinationDesc, delusionDesc, otherSymptoms, management, patientId) VALUES (?)"
         con.query(query, [data], (error) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             const query = "INSERT INTO diagnosis(patientId, diagnosis) VALUES (?)"
             con.query(query, [diagnosis], (error, result) => {
-                if (error) throw error;
+                if (error) return res.send('failed')
                 return res.send('success')
             })
         })
@@ -271,7 +289,7 @@ app.post('/comments', (req, res) => {
     try {
         const query = "INSERT INTO comments(patientId, date, comment) VALUES (?)"
         con.query(query, [data], (error) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             return res.send('success')
         })
     }
@@ -286,8 +304,8 @@ app.get('/comments/:id', (req, res) => {
     try {
         const query = "SELECT date, comment FROM comments where patientId = ?"
         con.query(query, Id, (error, result) => {
-            if (error) throw error;
-           console.log('comments server'+result.date);
+            if (error) return res.send('failed')
+            console.log('comments server' + result.date);
             return res.send(result)
         })
     }
@@ -300,8 +318,8 @@ app.get('/mse/:id', (req, res) => {
     try {
         const query = "SELECT mse.*, diagnosis.diagnosis, patients.marital_status, patients.age, patients.date1 FROM mse inner join diagnosis on diagnosis.patientId = mse.patientId inner join patients on mse.patientId = patients.id where mse.patientId = ?"
         con.query(query, Id, (error, result) => {
-            if (error) throw error;
-            console.log("result : ",result)
+            if (error) return res.send('failed')
+            console.log("result : ", result)
             return res.send(result)
         })
     }
@@ -311,18 +329,18 @@ app.get('/mse/:id', (req, res) => {
 })
 app.post('/get_patient_data', (req, res) => {
     const name = req.body.name
-    const query = "select * from mse where patientId = (select id from patients where full_name = ?)"
+    const query = "select * from mse where patientId = (select id from patients where full_name = ? limit 1)"
     try {
         con.query(query, name, (error, result) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             if (result.length === 0) {
                 con.query(`SELECT id, age, marital_status from patients where full_name = '${name}'`, (error, result) => {
-                    if (error) throw error;
-                    res.send(result)
+                    if (error) return res.send('failed')
+                    return res.send(result)
                 })
             }
             else {
-                res.send(result)
+                return res.send(result)
             }
         })
     }
@@ -345,9 +363,9 @@ app.post('/send_email', (req, res) => {
     const query = `select * from ${user} where email = '${email}'`
     try {
         con.query(query, (error, result) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             if (result.length === 0) {
-                res.send('failed')
+                return res.send('failed')
             }
             else {
                 var mailOptions = {
@@ -358,9 +376,9 @@ app.post('/send_email', (req, res) => {
                 };
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
-                        console.log(error)
+                        return res.send('failed')
                     } else {
-                        res.send(pass);
+                        return res.send(pass);
                     }
                 });
             }
@@ -377,8 +395,8 @@ app.post('/change_password', (req, res) => {
     const query = `UPDATE ${user} SET pass = '${password}' WHERE email = '${email}'`
     try {
         con.query(query, (error, result) => {
-            if (error) throw error;
-            res.send('success')
+            if (error) return res.send('failed')
+            return res.send('success')
         })
     }
     catch (e) {
@@ -391,7 +409,7 @@ app.get('/get_appointments/:id', (req, res) => {
     try {
         const query = "SELECT MAX(date) as date from appointments where patientId = ?"
         con.query(query, Id, (error, result) => {
-            if (error) throw error;
+            if (error) return res.send('failed')
             return res.send(result)
         })
     }
@@ -400,8 +418,13 @@ app.get('/get_appointments/:id', (req, res) => {
     }
 })
 app.listen(3001, (error) => {
-    if (error)
+    if (error) {
         console.log(error)
+        nodemon({
+            script: 'app.js',
+            ext: 'js'
+        });
+    }
     else
         console.log('started')
 });

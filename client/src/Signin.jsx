@@ -35,19 +35,29 @@ function Signin() {
         setErrors(x);
         if (Object.keys(x).length === 0 && user) {
             values.user = user
-            document.getElementById('s').innerHTML = `<div class=" spinner-border spinner-border text-warning" role="status"><span class="visually-hidden">Loading...</span></div>`
+            document.getElementById('s').innerHTML = `<div class="spinner-border spinner-border text-warning" role="status"><span class="visually-hidden">Loading...</span></div>`
             try {
                 await axios.post(baseUrl + '/signin', values).then(res => {
-                    if (res.data !== 'failed') {
+                    console.log(res)
+                    console.log(res.data !== "failed" && res.data !== "wrong creds")
+                    if (res.data !== 'failed' && res.data !== "wrong creds") {
                         var userName = values.email.split('@')
                         sessionStorage.setItem('username', userName[0])
                         sessionStorage.setItem('jwt', res.data)
                         sessionStorage.setItem('user', user)
                         nevigate("/" + user);
                     }
-                    else if (res.data === 'failed') {
+                    else if (res.data === 'wrong creds') {
                         document.getElementById('r').innerHTML = 'wrong credentials !!';
                         document.getElementById('r').className = 'text-danger mt-2';
+                        document.getElementById('s').innerHTML = `<p className="btn btn-primary">Sign In</p>`
+                    }
+                    else if (res.data === 'failed') {
+                        document.getElementById('r').innerHTML = 'Server Error ... Refreshing !!';
+                        document.getElementById('r').className = 'text-danger mt-2';
+                        setTimeout(() => {
+                            nevigate('/signin');
+                        }, 3000);
                     }
                 })
             }

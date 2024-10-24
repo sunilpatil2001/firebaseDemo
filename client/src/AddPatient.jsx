@@ -61,16 +61,24 @@ function AddPatient() {
             if (Object.keys(x).length === 0) {
                 document.getElementById('r').innerHTML = `<div class=" spinner-border spinner-border text-warning" role="status"><span class="visually-hidden">Loading...</span></div>`
                 await axios.post(baseUrl + '/add_patient', values).then(res => {
-                    if (res.data === 'success')
+                    if (res.data === 'success') {
                         document.getElementById('r').innerHTML = 'Patient Added Successfully'
-                    document.getElementById('r').className = 'text-success'
-                    setTimeout(() => {
-                        nevigate('/admin');
-                    }, 3000);
+                        document.getElementById('r').className = 'text-success'
+                        setTimeout(() => {
+                            nevigate('/admin');
+                        }, 3000);
+                    }
+                    else if (res.data === 'failed') {
+                        document.getElementById('r').innerHTML = 'Please try again'
+                        document.getElementById('r').className = 'text-danger'
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
                 })
             }
         } catch (e) {
-            document.getElementById('r').innerHTML = 'Please try again'
+            document.getElementById('r').innerHTML = 'Something went wrong !!'
             document.getElementById('r').className = 'text-danger'
             setTimeout(() => {
                 window.location.reload();
