@@ -32,22 +32,17 @@ const con = mysql.createConnection({
     password: 'root',
     database: 'pms'
 });*/
-function connectToDB() {
-    try {
-        con.connect((err) => {
-            if (err) {
-                console.log("Error occured", err);
-                connectToDB()
-            }
-            else
-                console.log("connected with database");
-        });
-    } catch (e) {
-        console.log(e)
-    }
+try {
+    con.connect((err) => {
+        if (err) {
+            console.log("Error occured", err);
+        }
+        else
+            console.log("connected with database");
+    });
+} catch (e) {
+    console.log(e)
 }
-
-connectToDB()
 
 app.post('/signup', (req, res) => {
     const user = req.body.user
