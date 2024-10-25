@@ -37,10 +37,7 @@ function connectToDB() {
         con.connect((err) => {
             if (err) {
                 console.log("Error occured", err);
-                nodemon({
-                    script: 'app.js',
-                    ext: 'js'
-                });
+                connectToDB()
             }
             else
                 console.log("connected with database");
@@ -420,10 +417,6 @@ app.get('/get_appointments/:id', (req, res) => {
 app.listen(3001, (error) => {
     if (error) {
         console.log(error)
-        nodemon({
-            script: 'app.js',
-            ext: 'js'
-        });
     }
     else
         console.log('started')
